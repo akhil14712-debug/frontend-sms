@@ -1,0 +1,81 @@
+import React, {useState,useEffect} from 'react'
+import { deleteStudent, listStudent } from '../../Services/StudentService';
+import { useNavigate } from 'react-router-dom';
+
+
+const ListStudent = () => {
+    const navigate = useNavigate()
+    const [students,setStudents] = useState([]);
+    useEffect(()=>{
+        getAllStudent();
+    },[])
+
+    function getAllStudent(){
+        listStudent().then((res)=>{
+            setStudents(res.data);
+        }).catch(error =>{
+            console.log(error);
+        }); 
+    }
+
+    function updateStudent(id){
+        navigate(`/update-student/${id}`);
+    }
+
+    function removeStudent(id){
+        console.log(id);
+        deleteStudent(id).then((res) => {
+            getAllStudent();
+        }).catch(err =>{
+            console.error(err);
+        })
+    }
+
+   
+  
+  return (
+    <div>
+    <button className="my-btn1" onClick={() => navigate('/students/add')}>+ Add Student</button>
+    <div className="table-wrapper">
+        <h2><center>List of Students</center></h2>
+        <table className="table table-striped table-bordered student-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Student Id</th>
+                    <th>Student Name</th>
+                    <th>Student Email</th>
+                    <th>Student Phone</th>
+                    <th>Action</th>
+                   
+                </tr>
+            </thead>
+
+            <tbody>
+                {
+                    students.map(student =>
+                        <tr key={student.id}>
+                            <td>{student.id}</td>
+                            <td>{student.studentId}</td>
+                            <td>{student.name}</td>
+                            <td>{student.email}</td>
+                            <td>{student.phone}</td>
+                            <td>
+                                <button className="btn btn-info" onClick={() => updateStudent(student.id)}>Update</button>
+                                 <button className="btn btn-danger" onClick={() => removeStudent(student.id)}>Delete</button>
+                            </td>
+                        </tr>
+                        
+                    )
+                }
+            </tbody>
+
+        </table>
+    </div>
+   </div>
+    
+
+  )
+}
+
+export default ListStudent
