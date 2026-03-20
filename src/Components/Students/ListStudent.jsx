@@ -61,7 +61,7 @@ const ListStudent = () => {
                             <td>{student.email}</td>
                             <td>{student.phone}</td>
                             <td>
-                                <button className="btn btn-info" onClick={() => updateStudent(student.id)}>Update</button>
+                                <button className="btn btn-primary" onClick={() => updateStudent(student.id)}>Update</button>
                                  <button className="btn btn-danger" onClick={() => removeStudent(student.id)}>Delete</button>
                             </td>
                         </tr>

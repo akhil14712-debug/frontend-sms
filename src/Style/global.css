@@ -81,16 +81,16 @@ table.student-table > tbody > tr:nth-child(even) {
 }
 
 
-table.student-table > tbody > tr:hover {
+ table.student-table > tbody > tr:hover {
     background-color: #b5c5d5 !important;  
     color: rgb(0, 0, 0) !important;
     transform: scale(1.01) !important;     /* slight zoom */
     cursor: pointer !important;
-}
+} 
 
 table.student-table > tbody > tr:hover > td {
     color: rgb(0, 0, 0) !important;
-    background-color: #efffc9;
+    background-color: #c3c4c1;
 }
 
 table.student-table > tbody > tr > td {
@@ -546,3 +546,4 @@ height:150px;
 .btn.btn-danger{
   margin-left:30px;
 }
+

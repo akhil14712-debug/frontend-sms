@@ -6,6 +6,8 @@ import ListStudent from './Components/Students/ListStudent';
 
 import './Style/global.css'
 import AddStudent from './Components/Students/AddStudent';
+import ListCourse from './Components/Cources/ListCourse';
+import AddCourse from './Components/Cources/AddCourse';
 
 const App = () => {
   const [active,setActive] = useState("Dashboard")
@@ -24,6 +26,9 @@ const App = () => {
           <Route path="/students" element={<ListStudent/>}></Route>
           <Route path="/students/add" element={<AddStudent/>}></Route>
           <Route path="/update-student/:id" element={<AddStudent/>}></Route>
+          <Route path="/courses" element={<ListCourse/>}></Route>
+          <Route path="/courses/add" element={<AddCourse/>}></Route>
+          <Route path="update-course/:courseId" element={<AddCourse/>}></Route>
         </Routes>
         </div>
       </div>
