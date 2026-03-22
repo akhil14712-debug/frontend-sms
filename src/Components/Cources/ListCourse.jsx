@@ -49,8 +49,8 @@ const ListCourse = () => {
                         <td>{course.duration}</td>
                         <td>{course.fee}</td>
                         <td>
-                            <button className="btn btn-primary" onClick={()=>updateCourse(course.courseId)}>Update</button>
-                            <button className="btn btn-danger">Delete</button>
+                            <button className="btn btn-primary" onClick={()=>updateCourse(course.courseId)}>✏️Update</button>
+                            <button className="btn btn-danger">🗑️Delete</button>
                         </td>
                     </tr>
                    ) 

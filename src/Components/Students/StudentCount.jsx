@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import axios from 'axios';
-import Dashboard from '../Dashboard';
+// import React, { useState } from 'react'
+// import axios from 'axios';
+// import Dashboard from '../Dashboard';
 
-const StudentCount = () => {
+// const StudentCount = () => {
     
-  return (
-    <>
-    <Dashboard count={count}/>
-    </>
-  )
-}
+//   return (
+//     <>
+//     <Dashboard count={count}/>
+//     </>
+//   )
+// }
 
-export default StudentCount
+// export default StudentCount

@@ -26,7 +26,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="sidebar__brand">
         <div className="sidebar__brand-name">SMS🎓</div>
-        <div className="sidebar__brand-sub">Student Management System</div>
+        <div className="sidebar__brand-sub"></div>
       </div>
       <nav className="sidebar__nav">
         {navItems.map((group) => (

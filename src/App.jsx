@@ -8,6 +8,8 @@ import './Style/global.css'
 import AddStudent from './Components/Students/AddStudent';
 import ListCourse from './Components/Cources/ListCourse';
 import AddCourse from './Components/Cources/AddCourse';
+import AddTeacher from './Components/Teachers/AddTeacher';
+import ListTeacher from './Components/Teachers/ListTeacher';
 
 const App = () => {
   const [active,setActive] = useState("Dashboard")
@@ -29,6 +31,9 @@ const App = () => {
           <Route path="/courses" element={<ListCourse/>}></Route>
           <Route path="/courses/add" element={<AddCourse/>}></Route>
           <Route path="update-course/:courseId" element={<AddCourse/>}></Route>
+          <Route path="/teachers" element={<ListTeacher/>}></Route>
+          <Route path="/teachers/add" element={<AddTeacher/>}></Route>
+          <Route path="/update-teacher/:id" element={<AddTeacher/>}></Route>
         </Routes>
         </div>
       </div>
