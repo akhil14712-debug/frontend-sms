@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { listCourse } from '../../Services/CourseSerive';
+import { deleteCourse ,listCourse } from '../../Services/CourseSerive';
 import { Navigate, useNavigate } from 'react-router-dom';
+
 const ListCourse = () => {
+    const navigate = useNavigate()
     const [courses,setCourses] = useState([]);
-    console.log(courses)
-    const navigate = useNavigate();
+    
     useEffect(()=>{
         getAllCourse()
     },[])
@@ -18,9 +19,20 @@ const ListCourse = () => {
         })
     }
 
-    function updateCourse(courseId){
-        navigate(`update-course/${courseId}`)
+    function updateCourse(id){
+        navigate(`/update-course/${id}`)
     }
+
+    function removeCourse(id){
+        console.log(id);
+        deleteCourse(id).then((res) => {
+            getAllCourse();
+        }).catch(err =>{
+            console.error(err);
+        })
+    }
+
+    
 
    
   return (
@@ -45,12 +57,12 @@ const ListCourse = () => {
                     <tr key ={course.id}>
                         <td>{course.courseId}</td>
                         <td>{course.courseName}</td>
-                        <td>{course.instructor}</td>
+                        <td>{course.teacherName}</td>
                         <td>{course.duration}</td>
                         <td>{course.fee}</td>
                         <td>
                             <button className="btn btn-primary" onClick={()=>updateCourse(course.courseId)}>✏️Update</button>
-                            <button className="btn btn-danger">🗑️Delete</button>
+                            <button className="btn btn-danger" onClick={()=>removeCourse(course.courseId)}>🗑️Delete</button>
                         </td>
                     </tr>
                    ) 

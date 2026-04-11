@@ -5,19 +5,22 @@ const Dashboard = () => {
   const [count,setCount] = useState(0);
     const [loading,setLoading] = useState(0);
 
-    const [stat,setStat] = useState({students:0,courses:0,teachers:0});
+    const [stat,setStat] = useState({students:0,courses:0,teachers:0,enrollments:0});
 
     useEffect(() =>{
       Promise.all([
-        axios.get("http://localhost:8080/api/students/count"),
-        axios.get("http://localhost:8080/api/course/count"),
-        axios.get("http://localhost:8080/api/teacher/count")
+        axios.get("http://localhost:9090/api/students/count"),
+        axios.get("http://localhost:9090/api/course/count"),
+        axios.get("http://localhost:9090/api/teacher/count"),
+        axios.get("http://localhost:9090/api/enrollment/count")
       ])
-      .then(([studentRes,courseRes,teacherRes])=>{
+      .then(([studentRes,courseRes,teacherRes,enrollmentRes])=>{
         setStat({
           students : studentRes.data,
           courses: courseRes.data,
-          teachers:teacherRes.data
+          teachers:teacherRes.data,
+          enrollments:enrollmentRes.data
+
         });
       });
     },[]);
@@ -57,10 +60,12 @@ const Dashboard = () => {
         <div className="stat-card" style={{background: "linear-gradient(135deg, #0a3b97, #197df0)"}}>
           <div className="stat-card__left">
             <div className="stat-card__label" style={{color:"white"}}>Enrollments</div>
-            <div className="stat-card__value" style={{ color: "#ffffff" }}>{3}</div>
+            <div className="stat-card__value" style={{ color: "#ffffff" }}>{stat.enrollments}</div>
           </div>
           <div className="stat-card__icon" style={{ background: "#EDE9FE" }}>📝</div>
         </div>
+        
+        
       </div>
     </div>
     

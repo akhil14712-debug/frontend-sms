@@ -555,3 +555,10 @@ height:150px;
   border: white;
 }
 
+.inp-dash{
+  border-radius:20px;
+  margin-top:60px;
+  padding:10px;
+  width:400px;
+}
+

@@ -1,30 +1,120 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { createCourse } from '../../Services/CourseSerive';
+import React, { useEffect, useState } from 'react'
+import { useNavigate ,useParams } from 'react-router-dom';
+import { createCourse,updateCourse} from '../../Services/CourseSerive';
+import { getCourse } from '../../Services/CourseSerive';
+import { listTeacher } from '../../Services/TeacherService';
 
 const AddCourse = () => {
    
     const [courseName,setCourseName] = useState("")
-    const [instructor,setInstructor] = useState("");
+    const [teacherId,setTeacherId] = useState();
     const [duration,setDuration] = useState("")
-    const [fee,setFee] = useState()
+    const [fee,setFee] = useState("")
+    const [teachers,setTeachers] = useState([])
 
+    const [error,setError] = useState({
+        courseName:"",
+        duration:"",
+        fee:"",
+        teacherId:0
+      })
+
+    const {id} = useParams();
     const navigate = useNavigate();
-    
-    function saveCourse(e){
-        e.preventDefault();
-        const course = {courseName,instructor,duration,fee}
-        createCourse(course)
-        .then((res)=>{
-            console.log(res.data)
-            navigate('/courses')
+
+
+    useEffect(()=>{
+
+        listTeacher().then((res)=>{
+            setTeachers(res.data);
         })
-        .catch((err)=>{
-            console.log(err)
-        });
+        .catch(err=>console.log(err))
+        if(id){
+            getCourse(id).then((res)=>{
+            setCourseName(res.data.courseName)
+            
+            setDuration(res.data.duration)
+            setFee(res.data.fee);
+            setTeacherId(res.data.teacherId)
+        }).catch(err=>{
+            console.log(err);
+        })
+        }
+        
+    },[id])
+    
+    function saveOrUpdateCourse(e){
+        
+        e.preventDefault();
+        
+        if(validateForm()){
+            const course = {
+                courseName:courseName,
+                fee:fee,
+                duration:duration,
+                teacherId:teacherId,
+            }
+            console.log(course)
+
+            if(id){
+                updateCourse(id,course).then((res)=>{
+                    console.log(res.data);
+                    navigate('/courses')
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }else{
+                createCourse(course).then((res)=>{
+                    console.log(res.data)
+                    navigate('/courses')
+                }).catch((err)=>{
+                    console.log(err);
+                })
+            }
+
+        }
+        
     }
 
-    const id = false;
+    function validateForm(){
+        let valid = true;
+
+        const errorCopy = {...error}
+
+        if(courseName.trim()){
+            errorCopy.courseName='';
+        }else{
+            errorCopy.courseName = 'Name is required';
+            valid=false;
+        }
+
+        // if(instructor.trim()){
+        //     errorCopy.instructor = '';
+        // }else{
+        //     errorCopy.instructor = 'Instructor name is required'
+        //      valid=false; 
+        // }
+
+        if(duration.trim()){
+            errorCopy.duration = '';
+        }else{
+            errorCopy.duration = 'Duration is required'
+              valid=false;
+        }
+
+         if(fee.trim()){
+            errorCopy.fee = '';
+        }else{
+            errorCopy.fee = 'Fees is required'
+              valid=false;
+        }
+
+        setError(errorCopy)
+          return valid;
+
+    }
+
+ 
 
     function pageTitle(){
         if(id){
@@ -41,23 +131,37 @@ const AddCourse = () => {
                 pageTitle()
             }
             <p className="form__subtitle">Fill in the details to add a new course</p>
-            <form onSubmit={saveCourse}>
+            <form onSubmit={saveOrUpdateCourse}>
                 <div className="form__group">
                     <label className="form__label">Course Name</label>
-                    <input className="form__input" type="text" value={courseName} onChange={(e)=>setCourseName(e.target.value)}></input>
+                    <input className="form__input" type="text" value={courseName} onChange={(e)=>setCourseName(e.target.value)}/>
                 </div>
-                <div className="form__group">
-                    <label className="form__label">Instructor Name</label>
-                    <input className="form__input" type="text" value={instructor} onChange={(e)=>setInstructor(e.target.value)}></input>
-                </div>
+                
                 <div className="form__group">
                     <label className="form__label">Duration</label>
-                    <input className="form__input" type="text" value={duration} onChange={(e)=>setDuration(e.target.value)}></input>
+                    <input className="form__input" type="text" value={duration} onChange={(e)=>setDuration(e.target.value)}/>
                 </div>
                 <div className="form__group">
                     <label className="form__label">Fees</label>
-                    <input className="form__input" type="text" value={fee} onChange={(e)=>setFee(e.target.value)}></input>
+                    <input className="form__input" type="text" value={fee} onChange={(e)=>setFee(e.target.value)}/>
                 </div>
+
+                <div className="form__group">
+                    <label className="form__label">Teacher Id</label>
+                    <select className="form__input" type="text" value={teacherId} onChange={(e)=>setTeacherId(e.target.value)}
+                    >
+
+                    <option value="">Select Teacher</option>
+                    {teachers.map((teacher)=> (
+                        <option key={teacher.teacherId} value={teacher.teacherId}>{teacher.teacherId}</option>
+                    ))}
+                    
+                    </select>
+                    
+                    
+                </div>
+
+
                 <div className="form__actions">
                     <button type="button" className="form__btn-cancel" onClick={()=>navigate('/courses')}>Cancel</button>
                     <button type="submit" className="form__btn-submit">Save Course</button>

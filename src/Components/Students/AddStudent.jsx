@@ -24,9 +24,9 @@ const AddStudent = () => {
     if(id){
       getStudent(id).then((res)=>{
         setStudentId(res.data.studentId);
-        setName(res.data.name);
-        setEmail(res.data.email);
-        setPhone(res.data.phone);
+        setName(res.data.sname);
+        setEmail(res.data.semail);
+        setPhone(res.data.sphone);
 
       }).catch(err => {
         console.log(err)
@@ -38,7 +38,12 @@ const AddStudent = () => {
     e.preventDefault();
 
     if(validateForm()){
-      const student = {studentId,name,email,phone}
+      const student = {
+    studentId: studentId,
+    sname: name,
+    semail: email,
+    sphone: phone
+}
       console.log(student)
 
       if(id){
@@ -46,46 +51,69 @@ const AddStudent = () => {
           console.log(res.data);
           navigate('/students');
         }).catch(err=>{
-          console.error(err);
+          console.log(err);
         })
       }else{
           createStudent(student).then((res)=> {
             console.log(res.data)
             navigate('/students')
           }).catch(err=>{
-            console.err(err)});
+            console.log(err)});
         }
     }
   }
 
-  function validateForm(){
+  
+
+   function validateForm() {
     let valid = true;
+    const errorsCopy = { ...error }
 
-    const errorsCopy = {... error}
-
-    if(studentId.trim()){
-      errorsCopy.studentId = '';
-    }else{
-      errorsCopy.studentId = 'StudentID is required';
+    // ✅ Student ID — allow alphanumeric only (e.g. FIT21)
+    if (!studentId.trim()) {
+      errorsCopy.studentId = 'Student ID is required';
       valid = false;
+    } else if (!/^[a-zA-Z0-9]+$/.test(studentId.trim())) {
+      errorsCopy.studentId = 'Student ID can only contain letters and numbers';
+      valid = false;
+    } else {
+      errorsCopy.studentId = '';
     }
-    if(name.trim()){
-      errorsCopy.name = '';
-    }else{
+
+    // ✅ Name — letters and spaces only, no dots or special chars
+    if (!name.trim()) {
       errorsCopy.name = 'Name is required';
       valid = false;
+    } else if (name.trim().length < 2) {
+      errorsCopy.name = 'Name must be at least 2 characters';
+      valid = false;
+    } else if (!/^[a-zA-Z\s]+$/.test(name.trim())) {
+      errorsCopy.name = 'Name can only contain letters and spaces';
+      valid = false;
+    } else {
+      errorsCopy.name = '';
     }
-    if(email.trim()){
-      errorsCopy.email = '';
-    }else{
+
+    // ✅ Email — proper format check
+    if (!email.trim()) {
       errorsCopy.email = 'Email is required';
       valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      errorsCopy.email = 'Enter a valid email address';
+      valid = false;
+    } else {
+      errorsCopy.email = '';
     }
-    if(phone.trim()){
-      errorsCopy.phone = '';
-    }else{
+
+    // ✅ Phone — numbers only, exactly 10 digits
+    if (!phone.trim()) {
       errorsCopy.phone = 'Phone is required';
       valid = false;
+    } else if (!/^\d{10}$/.test(phone.trim())) {
+      errorsCopy.phone = 'Phone must be exactly 10 digits';
+      valid = false;
+    } else {
+      errorsCopy.phone = '';
     }
 
     setError(errorsCopy);
