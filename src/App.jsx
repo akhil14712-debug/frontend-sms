@@ -10,11 +10,19 @@ import ListCourse from './Components/Cources/ListCourse';
 import AddCourse from './Components/Cources/AddCourse';
 import AddTeacher from './Components/Teachers/AddTeacher';
 import ListTeacher from './Components/Teachers/ListTeacher';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import AddEnrollment from './Components/Enrollments/AddEnrollment';
+import ListEnrollment from './Components/Enrollments/ListEnrollment';
+
+
+
 
 const App = () => {
   const [active,setActive] = useState("Dashboard")
 
   return (
+    <>
     <BrowserRouter>
     <div className="app">
       <Sidebar active={active} setActive={setActive}/>
@@ -34,13 +42,20 @@ const App = () => {
           <Route path="/teachers" element={<ListTeacher/>}></Route>
           <Route path="/teachers/add" element={<AddTeacher/>}></Route>
           <Route path="/update-teacher/:id" element={<AddTeacher/>}></Route>
+          <Route path="/enrollment" element={<ListEnrollment/>}></Route>
+          <Route path="/enrollment/add" element={<AddEnrollment/>}></Route>
+          <Route path="/update-enrollment/:id" element={<AddEnrollment/>}></Route>
         </Routes>
         </div>
       </div>
       
     </div>
     </BrowserRouter>
+
+     <ToastContainer position="top-right" autoClose={3000} />
     
+    
+    </>
   
   )
 }

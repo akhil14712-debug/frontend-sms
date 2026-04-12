@@ -5,6 +5,8 @@ import { createTeacher  ,updateTeacher} from '../../Services/TeacherService'
 
 import { getTeacher } from '../../Services/TeacherService'
 
+import { toast } from 'react-toastify'
+
 const AddTeacher = () => {
  
   const [name, setName] = useState("")
@@ -60,7 +62,9 @@ const AddTeacher = () => {
           createTeacher(teacher).then((res)=> {
             console.log(res.data)
             navigate('/teachers')
+            toast.success("Teacher created successfully! 🎉")
           }).catch(err=>{
+             toast.error("Something went wrong! ❌")
             console.err(err)});
         }
     }

@@ -45,6 +45,7 @@ const ListCourse = () => {
                 <tr>
                     <th>Course Id</th>
                     <th>Course Name</th>
+                    <th>Description</th>
                     <th>Instructor Name</th>
                     <th>Duration</th>
                     <th>Fees</th>
@@ -57,12 +58,13 @@ const ListCourse = () => {
                     <tr key ={course.id}>
                         <td>{course.courseId}</td>
                         <td>{course.courseName}</td>
+                        <td>{course.description}</td>
                         <td>{course.teacherName}</td>
                         <td>{course.duration}</td>
                         <td>{course.fee}</td>
                         <td>
-                            <button className="btn btn-primary" onClick={()=>updateCourse(course.courseId)}>✏️Update</button>
-                            <button className="btn btn-danger" onClick={()=>removeCourse(course.courseId)}>🗑️Delete</button>
+                            <button className="course-up-btn" onClick={()=>updateCourse(course.courseId)}>✏️Update</button>
+                            <button className="course-dl-btn" onClick={()=>removeCourse(course.courseId)}>🗑️Delete</button>
                         </td>
                     </tr>
                    ) 

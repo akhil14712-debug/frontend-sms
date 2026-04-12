@@ -63,8 +63,8 @@ const ListTeacher = () => {
                             <td>{teacher.qualification}</td>
 
                             <td>
-                                <button className="btn btn-primary" onClick={() => updateTeacher(teacher.teacherId)}>✏️Update</button>
-                                 <button className="btn btn-danger" onClick={() => removeTeacher(teacher.teacherId)}>🗑️Delete</button>
+                                <button className="btn-up" onClick={() => updateTeacher(teacher.teacherId)}>✏️Update</button>
+                                 <button className="btn-dl" onClick={() => removeTeacher(teacher.teacherId)}>🗑️Delete</button>
                             </td>
                         </tr>
                         

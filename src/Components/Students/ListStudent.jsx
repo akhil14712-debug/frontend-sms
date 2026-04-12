@@ -42,8 +42,9 @@ const ListStudent = () => {
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Student Id</th>
+                    
                     <th>Student Name</th>
+                    <th>Student Department</th>
                     <th>Student Email</th>
                     <th>Student Phone</th>
                     <th>Action</th>
@@ -56,13 +57,14 @@ const ListStudent = () => {
                     students.map(student =>
                         <tr key={student.sid}>
                             <td>{student.sid}</td>
-                            <td>{student.studentId}</td>
+                           
                             <td>{student.sname}</td>
+                            <td>{student.department}</td>
                             <td>{student.semail}</td>
                             <td>{student.sphone}</td>
                             <td>
-                                <button className="btn btn-primary" onClick={() => updateStudent(student.sid)}>✏️Update</button>
-                                 <button className="btn btn-danger" onClick={() => removeStudent(student.sid)}>🗑️Delete</button>
+                                <button className="btn-up" onClick={() => updateStudent(student.sid)}>✏️Update</button>
+                                 <button className="btn-dl" onClick={() => removeStudent(student.sid)}>🗑️Delete</button>
                             </td>
                         </tr>
                         

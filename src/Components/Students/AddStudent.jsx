@@ -4,14 +4,19 @@ import { createStudent, updateStudent } from '../../Services/StudentService'
 
 import { getStudent } from '../../Services/StudentService'
 
+import { toast } from 'react-toastify'
+
 const AddStudent = () => {
-  const [studentId, setStudentId] = useState("")
+   
+  
   const [name, setName] = useState("")
+  const [department ,setDepartment] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [error,setError] = useState({
-    studentId:"",
+ 
     name:"",
+    department:"",
     email:"",
     phone:""
   })
@@ -23,8 +28,9 @@ const AddStudent = () => {
   useEffect(()=>{
     if(id){
       getStudent(id).then((res)=>{
-        setStudentId(res.data.studentId);
+       
         setName(res.data.sname);
+        setDepartment(res.data.department);
         setEmail(res.data.semail);
         setPhone(res.data.sphone);
 
@@ -39,8 +45,9 @@ const AddStudent = () => {
 
     if(validateForm()){
       const student = {
-    studentId: studentId,
+  
     sname: name,
+    department: department,
     semail: email,
     sphone: phone
 }
@@ -55,9 +62,15 @@ const AddStudent = () => {
         })
       }else{
           createStudent(student).then((res)=> {
+
+            toast.success("Student created successfully! 🎉")
+    setTimeout(() => {
+        navigate('/students')  
+    }, 6000)
             console.log(res.data)
             navigate('/students')
           }).catch(err=>{
+              toast.error("Something went wrong! ❌")
             console.log(err)});
         }
     }
@@ -70,15 +83,15 @@ const AddStudent = () => {
     const errorsCopy = { ...error }
 
     // ✅ Student ID — allow alphanumeric only (e.g. FIT21)
-    if (!studentId.trim()) {
-      errorsCopy.studentId = 'Student ID is required';
-      valid = false;
-    } else if (!/^[a-zA-Z0-9]+$/.test(studentId.trim())) {
-      errorsCopy.studentId = 'Student ID can only contain letters and numbers';
-      valid = false;
-    } else {
-      errorsCopy.studentId = '';
-    }
+    // if (!studentId.trim()) {
+    //   errorsCopy.studentId = 'Student ID is required';
+    //   valid = false;
+    // } else if (!/^[a-zA-Z0-9]+$/.test(studentId.trim())) {
+    //   errorsCopy.studentId = 'Student ID can only contain letters and numbers';
+    //   valid = false;
+    // } else {
+    //   errorsCopy.studentId = '';
+    // }
 
     // ✅ Name — letters and spaces only, no dots or special chars
     if (!name.trim()) {
@@ -92,6 +105,19 @@ const AddStudent = () => {
       valid = false;
     } else {
       errorsCopy.name = '';
+
+      if (!department.trim()) {
+      errorsCopy.department = 'Department is required';
+      valid = false;
+    } else if (department.trim().length < 2) {
+      errorsCopy.name = 'Department must be at least 2 characters';
+      valid = false;
+    } else if (!/^[a-zA-Z\s]+$/.test(department.trim())) {
+      errorsCopy.department = 'Department can only contain letters and spaces';
+      valid = false;
+    } else {
+      errorsCopy.department = '';
+    }
     }
 
     // ✅ Email — proper format check
@@ -133,6 +159,9 @@ const AddStudent = () => {
 
   return (
     <div className="form-container">
+
+      
+
       <div className="form">
         {
           pageTitle()
@@ -140,7 +169,7 @@ const AddStudent = () => {
         <p className="form__subtitle">Fill in the details to add a new student</p>
 
         <form onSubmit={saveOrUpdateStudent}>
-          <div className="form__group">
+          {/* <div className="form__group">
             <label className="form__label">Student ID</label>
             <input
               className="form__input"
@@ -149,7 +178,7 @@ const AddStudent = () => {
               value={studentId}
               onChange={(e) => setStudentId(e.target.value)}
             />
-          </div>
+          </div> */}
 
           <div className="form__group">
             <label className="form__label">Student Name</label>
@@ -159,6 +188,17 @@ const AddStudent = () => {
               placeholder="Enter full name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+
+          <div className="form__group">
+            <label className="form__label">Student Department</label>
+            <input
+              className="form__input"
+              type="text"
+              placeholder="Enter full name"
+              value={department}
+              onChange={(e) => setDepartment(e.target.value)}
             />
           </div>
 

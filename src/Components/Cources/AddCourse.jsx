@@ -3,17 +3,22 @@ import { useNavigate ,useParams } from 'react-router-dom';
 import { createCourse,updateCourse} from '../../Services/CourseSerive';
 import { getCourse } from '../../Services/CourseSerive';
 import { listTeacher } from '../../Services/TeacherService';
+import { toast } from 'react-toastify'
 
 const AddCourse = () => {
    
     const [courseName,setCourseName] = useState("")
+    const [description , setDescription] = useState("")
     const [teacherId,setTeacherId] = useState();
     const [duration,setDuration] = useState("")
     const [fee,setFee] = useState("")
     const [teachers,setTeachers] = useState([])
 
+  
+
     const [error,setError] = useState({
         courseName:"",
+        description:"",
         duration:"",
         fee:"",
         teacherId:0
@@ -32,7 +37,7 @@ const AddCourse = () => {
         if(id){
             getCourse(id).then((res)=>{
             setCourseName(res.data.courseName)
-            
+            setDescription(res.data.description)
             setDuration(res.data.duration)
             setFee(res.data.fee);
             setTeacherId(res.data.teacherId)
@@ -50,6 +55,7 @@ const AddCourse = () => {
         if(validateForm()){
             const course = {
                 courseName:courseName,
+                description:description,
                 fee:fee,
                 duration:duration,
                 teacherId:teacherId,
@@ -67,7 +73,9 @@ const AddCourse = () => {
                 createCourse(course).then((res)=>{
                     console.log(res.data)
                     navigate('/courses')
+                    toast.success("Course created successfully! 🎉")
                 }).catch((err)=>{
+                    toast.error("Something went wrong! ❌")
                     console.log(err);
                 })
             }
@@ -88,12 +96,12 @@ const AddCourse = () => {
             valid=false;
         }
 
-        // if(instructor.trim()){
-        //     errorCopy.instructor = '';
-        // }else{
-        //     errorCopy.instructor = 'Instructor name is required'
-        //      valid=false; 
-        // }
+        if(description.trim()){
+            errorCopy.description = '';
+        }else{
+            errorCopy.description = 'Description is required'
+             valid=false; 
+        }
 
         if(duration.trim()){
             errorCopy.duration = '';
@@ -102,12 +110,12 @@ const AddCourse = () => {
               valid=false;
         }
 
-         if(fee.trim()){
-            errorCopy.fee = '';
-        }else{
-            errorCopy.fee = 'Fees is required'
-              valid=false;
-        }
+        //  if(fee.trim()){
+        //     errorCopy.fee = '';
+        // }else{
+        //     errorCopy.fee = 'Fees is required'
+        //       valid=false;
+        // }
 
         setError(errorCopy)
           return valid;
@@ -136,6 +144,11 @@ const AddCourse = () => {
                     <label className="form__label">Course Name</label>
                     <input className="form__input" type="text" value={courseName} onChange={(e)=>setCourseName(e.target.value)}/>
                 </div>
+
+                <div className="form__group">
+                    <label className="form__label">Description</label>
+                    <input className="form__input" type="text" value={description} onChange={(e)=>setDescription(e.target.value)}/>
+                </div>
                 
                 <div className="form__group">
                     <label className="form__label">Duration</label>
@@ -147,13 +160,13 @@ const AddCourse = () => {
                 </div>
 
                 <div className="form__group">
-                    <label className="form__label">Teacher Id</label>
+                    <label className="form__label">Teacher Name</label>
                     <select className="form__input" type="text" value={teacherId} onChange={(e)=>setTeacherId(e.target.value)}
                     >
 
                     <option value="">Select Teacher</option>
                     {teachers.map((teacher)=> (
-                        <option key={teacher.teacherId} value={teacher.teacherId}>{teacher.teacherId}</option>
+                        <option key={teacher.teacherId} value={teacher.teacherId}>{teacher.tname}</option>
                     ))}
                     
                     </select>
