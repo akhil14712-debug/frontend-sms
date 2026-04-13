@@ -35,9 +35,9 @@ const ListStudent = () => {
   
   return (
     <div>
-    <button className="my-btn1" onClick={() => navigate('/students/add')}>+ Add Student</button>
+    <div className='add-student-div'><button className="my-btn1" onClick={() => navigate('/students/add')}>+ Add Student</button></div>
     <div className="table-wrapper">
-        <h2><center>List of Students</center></h2>
+        <div className='lst-student'><center>List of Students</center></div>
         <table className="table table-striped table-bordered student-table">
             <thead>
                 <tr>

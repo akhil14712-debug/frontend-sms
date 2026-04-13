@@ -1,18 +1,24 @@
 import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import DashboardIcon from '../assets/Icons/DashboardIcon'
+import Cap from '../assets/Icons/Cap'
+import Book from '../assets/Icons/Book'
+import Enroll from '../assets/Icons/Enroll'
+import Teacher from '../assets/Icons/Teacher'
+
 
 const navItems = [
   {
     section: "MAIN", items: [
-      { name: "Dashboard", icon: "🏠", path: "/" },
+      { name: "Dashboard", icon: <DashboardIcon/>, path: "/" },
     ]
   },
   {
     section: "ACADEMIC", items: [
-      { name: "Student",    icon: "🎓", path: "/students" },
-      { name: "Course",     icon: "📚", path: "/courses" },
-      { name: "Enrollment", icon: "📝", path: "/enrollment" },
-      { name: "Teachers",   icon: "👨‍🏫", path: "/teachers" },
+      { name: "Student",    icon: <Cap/>, path: "/students" },
+      { name: "Course",     icon: <Book/>, path: "/courses" },
+      { name: "Enrollment", icon: <Enroll/>, path: "/enrollment" },
+      { name: "Teachers",   icon: <Teacher/>, path: "/teachers" },
     ]
   }
 ]
@@ -25,7 +31,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebar__brand">
-        <div className="sidebar__brand-name">SMS🎓</div>
+        <div className="sidebar__brand-name"><img className="logo" src="Edutracker.png"></img></div>
         <div className="sidebar__brand-sub"></div>
       </div>
       <nav className="sidebar__nav">

@@ -1,5 +1,9 @@
 import React,{useEffect,useState} from 'react'
 import axios from 'axios';
+import Cap from '../assets/Icons/Cap';
+import Book from '../assets/Icons/Book';
+import Teacher from '../assets/Icons/Teacher';
+import Enroll from '../assets/Icons/Enroll';
 
 const Dashboard = () => {
   const [count,setCount] = useState(0);
@@ -38,7 +42,7 @@ const Dashboard = () => {
             <div className="stat-card__label" >Total Students</div>
             <div className="stat-card__value" style={{ color: "#000000" }}>{stat.students}</div>
           </div>
-          <div className="stat-card__icon" style={{ background: "#EFF6FF" }}>🎓</div>
+          <div className="stat-card__icon" style={{ background: "#EFF6FF" }}><Cap/></div>
         </div>
           
         <div className="stat-card" style={{background: "linear-gradient(135deg, #4facfe, #00f2fe)"}} >
@@ -46,7 +50,7 @@ const Dashboard = () => {
             <div className="stat-card__label">Active Courses</div>
             <div className="stat-card__value" style={{ color: "#000000" }}>{stat.courses}</div>
           </div>
-          <div className="stat-card__icon" style={{ background: "#ECFDF5" }}>📚</div>
+          <div className="stat-card__icon" style={{ background: "#ECFDF5" }}><Book/></div>
         </div>
 
         <div className="stat-card" style={{background: "linear-gradient(135deg, #a18cd1, #fbc2eb)"}}>
@@ -54,7 +58,7 @@ const Dashboard = () => {
             <div className="stat-card__label">Teachers</div>
             <div className="stat-card__value" style={{ color: "#000000" }}>{stat.teachers}</div>
           </div>
-          <div className="stat-card__icon" style={{ background: "#FFFBEB" }}>👨‍🏫</div>
+          <div className="stat-card__icon" style={{ background: "#FFFBEB" }}><Teacher/></div>
         </div>
 
         <div className="stat-card" style={{background: "linear-gradient(135deg, #0a3b97, #197df0)"}}>
@@ -62,7 +66,7 @@ const Dashboard = () => {
             <div className="stat-card__label" style={{color:"white"}}>Enrollments</div>
             <div className="stat-card__value" style={{ color: "#ffffff" }}>{stat.enrollments}</div>
           </div>
-          <div className="stat-card__icon" style={{ background: "#EDE9FE" }}>📝</div>
+          <div className="stat-card__icon" style={{ background: "#EDE9FE" }}><Enroll/></div>
         </div>
         
         

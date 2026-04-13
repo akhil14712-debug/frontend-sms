@@ -35,7 +35,8 @@ const ListEnrollment = () => {
   
   return (
     <div>
-    <button className="my-btn1" onClick={() => navigate('/enrollment/add')}>+ Add Enrollment</button>
+        <div className='add-student-div'>
+    <button className="my-btn1" onClick={() => navigate('/enrollment/add')}>+ Add Enrollment</button></div>
     <div className="table-wrapper">
         <h2><center>List of Enrollments</center></h2>
         <table className="table table-striped table-bordered student-table">
