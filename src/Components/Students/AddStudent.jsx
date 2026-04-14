@@ -21,6 +21,8 @@ const AddStudent = () => {
     phone:""
   })
 
+  
+
   const {id} = useParams();
   const navigate = useNavigate()
 
@@ -75,6 +77,8 @@ const AddStudent = () => {
         }
     }
   }
+
+  
 
   
 

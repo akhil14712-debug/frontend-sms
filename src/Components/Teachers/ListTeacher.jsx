@@ -1,11 +1,13 @@
 import React, {useState,useEffect} from 'react'
-import { deleteTeacher,listTeacher } from '../../Services/TeacherService';
+import { deleteTeacher,getTeacherSearch,listTeacher } from '../../Services/TeacherService';
 import { useNavigate } from 'react-router-dom';
 
 
 const ListTeacher = () => {
     const navigate = useNavigate()
     const [teachers,setTeachers] = useState([]);
+    const[searchName,setSearchName] = useState("")
+
     useEffect(()=>{
         getAllTeacher();
     },[])
@@ -31,10 +33,25 @@ const ListTeacher = () => {
         })
     }
 
+    function searchTeacher(){
+        if(!searchName.trim()){
+            getAllTeacher()
+            return
+        }else{
+            getTeacherSearch(searchName)
+            .then((res)=>setTeachers(res.data))
+            .catch(err=>console.log(err));
+        }
+    }
+
    
   
   return (
     <div>
+        <div className="search-container">
+            <input type="text" placeholder='Search teacher by name'  className="search" value={searchName} onChange={(e)=>setSearchName(e.target.value)}></input>
+            <button className="search-btn" onClick={searchTeacher}>Search</button>
+        </div>
     <div className='add-student-div'><button className="my-btn1" onClick={() => navigate('/teachers/add')}>+ Add Teacher</button></div>
     <div className="table-wrapper">
         <h2><center>List of Teacher</center></h2>

@@ -11,3 +11,5 @@ export const getStudent = (id) => axios.get(REST_API_BASE_URL +'/'+id);
 export const updateStudent = (id,student) => axios.put(REST_API_BASE_URL +'/'+id,student);
 
 export const deleteStudent = (id) => axios.delete(REST_API_BASE_URL +'/'+id);
+
+export const getStudentSearch = (name) => axios.get(REST_API_BASE_URL+'/search?name='+name)

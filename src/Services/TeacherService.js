@@ -11,3 +11,5 @@ export const getTeacher = (id) => axios.get(REST_API_BASE_URL +'/'+id);
 export const updateTeacher = (id,teacher) => axios.put(REST_API_BASE_URL +'/'+id,teacher);
 
 export const deleteTeacher = (id) => axios.delete(REST_API_BASE_URL +'/'+id);
+
+export const getTeacherSearch = (name) => axios.get(REST_API_BASE_URL+'/search?name='+name)
