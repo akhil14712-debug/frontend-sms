@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 const ListStudent = () => {
     const navigate = useNavigate()
+
+    const [loading,setLoading] = useState(true);
+    const [error,setError] = useState(null);
+
     const [students,setStudents] = useState([]);
     const [searchName,setSearchName] = useState("");
     useEffect(()=>{
@@ -12,11 +16,16 @@ const ListStudent = () => {
     },[])
 
     function getAllStudent(){
+        setLoading(true)
+        setError(null)
         listStudent().then((res)=>{
             setStudents(res.data);
         }).catch(error =>{
             console.log(error);
-        }); 
+            setError("Failed t load the student . Please check if backend is running..");
+        }).finally(() => {
+            setLoading(false);
+        })
     }
 
     function updateStudent(id){
@@ -31,6 +40,21 @@ const ListStudent = () => {
             console.error(err);
         })
     }
+
+    if(loading) return (
+         <div className="loading-container">
+            <div className="spinner"></div>
+            <p>Loading students...</p>
+        </div>
+    )
+
+    if(error) return (
+        <div className="error-container">
+            <h3>⚠️ Something went wrong</h3>
+            <p>{error}</p>
+            <button onClick={getAllStudent}>Try Again</button>
+        </div>
+    )
 
     function searchStudent(){
         if(!searchName.trim()){
@@ -52,7 +76,7 @@ const ListStudent = () => {
   return (
     <div>
         <div className="search-container">
-            <input type="text" placeholder='Search students by name'  className="search" value={searchName} onChange={(e)=>setSearchName(e.target.value)}></input>
+            <input type="text" placeholder="Search students by name"  className="search" value={searchName} onChange={(e)=>setSearchName(e.target.value)}></input>
             <button className="search-btn" onClick={searchStudent}>Search</button>
             <button className="cancel-btn" onClick={cancelSearch}>Cancel</button>
         </div>
