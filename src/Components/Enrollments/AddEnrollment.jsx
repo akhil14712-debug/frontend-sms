@@ -26,15 +26,22 @@ const AddEnrollment = () => {
   useEffect(()=>{
     listStudent().then((res)=>
         setStudents(res.data)
+
     )
     .catch(err=>console.log(err))
+    console.log(students)
 
     listCourse().then((res)=> setCourses(res.data))
+   
     .catch(err=>console.log(err))
+      console.log(courses)
     if(id){
       getEnrollment(id).then((res)=>{
-        setStudentId(res.data.studentName);
-        setCourseId(res.data.courseName);
+
+        console.log(res.data)
+        
+        setStudentId(res.data.studentId);
+        setCourseId(res.data.courseId);
         setEnrollmentDate(res.data.enrollmentDate);
         setStatus(res.data.status);
 
@@ -59,12 +66,19 @@ const AddEnrollment = () => {
       if(id){
         updateEnrollment(id,enrollment).then((res)=>{
           console.log(res.data);
+          
           navigate('/enrollment');
+           toast.success("Enrollment updated successfully! 🎉")
+    setTimeout(() => {
+        
+    }, 6000)
         }).catch(err=>{
+           toast.error("Something went wrong! ❌")
           console.log(err);
         })
       }else{
           createEnrollment(enrollment).then((res)=> {
+            console.log(enrollment)
             navigate('/enrollment')  
             toast.success("Enrollment created successfully! 🎉")
     setTimeout(() => {

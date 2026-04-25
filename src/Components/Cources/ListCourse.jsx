@@ -69,7 +69,7 @@ const ListCourse = () => {
 
             {/* Header */}
             <div className="course-header">
-                <h2>📚 All Courses <span className="count-badge">{courses.length}</span></h2>
+                <h3>📚 All Courses <span className="count-badge">{courses.length}</span></h3>
                 <button className="btn-add" onClick={() => navigate('/courses/add')}>
                     + Add Course
                 </button>

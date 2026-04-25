@@ -28,7 +28,7 @@ const App = () => {
       <Sidebar active={active} setActive={setActive}/>
       <div className="app__right">
         <div className="navbar">
-        <span className="navbar_title">Student Management System</span>
+        <span className="navbar_title">Student Data & Performance Tracker</span>
       </div>
       <div className="app__content">
         <Routes>

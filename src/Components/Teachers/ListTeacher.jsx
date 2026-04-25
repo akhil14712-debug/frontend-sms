@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import { deleteTeacher,getTeacherSearch,listTeacher } from '../../Services/TeacherService';
 import { useNavigate } from 'react-router-dom';
+import Search from '../../assets/Icons/Search';
 
 
 const ListTeacher = () => {
@@ -50,7 +51,7 @@ const ListTeacher = () => {
     <div>
         <div className="search-container">
             <input type="text" placeholder='Search teacher by name'  className="search" value={searchName} onChange={(e)=>setSearchName(e.target.value)}></input>
-            <button className="search-btn" onClick={searchTeacher}>Search</button>
+            <button className="search-btn" onClick={searchTeacher}><Search/></button>
         </div>
     <div className='add-student-div'><button className="my-btn1" onClick={() => navigate('/teachers/add')}>+ Add Teacher</button></div>
     <div className="table-wrapper">

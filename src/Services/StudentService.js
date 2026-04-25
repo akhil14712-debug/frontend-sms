@@ -12,4 +12,18 @@ export const updateStudent = (id,student) => axios.put(REST_API_BASE_URL +'/'+id
 
 export const deleteStudent = (id) => axios.delete(REST_API_BASE_URL +'/'+id);
 
-export const getStudentSearch = (name) => axios.get(REST_API_BASE_URL+'/search?name='+name)
+
+
+export const completeList = (name,department,pageNo,pageSize,sortBy,sortDir) => {
+    return axios.get('http://localhost:9090/api/students/search',{
+        params :{
+            name,
+            department,
+            pageNo,
+            pageSize,
+            sortBy,
+            sortDir
+        }
+    });
+    
+};
