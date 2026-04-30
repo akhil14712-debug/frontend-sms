@@ -5,6 +5,8 @@ import Cap from '../assets/Icons/Cap'
 import Book from '../assets/Icons/Book'
 import Enroll from '../assets/Icons/Enroll'
 import Teacher from '../assets/Icons/Teacher'
+import LoginIcon from '../assets/Icons/LoginIcon'
+import LogoutIcon from '../assets/Icons/LogoutIcon'
 
 
 const navItems = [
@@ -19,6 +21,11 @@ const navItems = [
       { name: "Course",     icon: <Book/>, path: "/courses" },
       { name: "Enrollment", icon: <Enroll/>, path: "/enrollment" },
       { name: "Teachers",   icon: <Teacher/>, path: "/teachers" },
+    ]
+  },{
+    section :"SETTINGS", items: [
+      {name : "Login",icon:<LoginIcon/> ,path: '/login'},
+      {name : "Logout", icon:<LogoutIcon/>}
     ]
   }
 ]

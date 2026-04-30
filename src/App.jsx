@@ -14,6 +14,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import AddEnrollment from './Components/Enrollments/AddEnrollment';
 import ListEnrollment from './Components/Enrollments/ListEnrollment';
+import Login from './Components/Login';
 
 
 
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/enrollment" element={<ListEnrollment/>}></Route>
           <Route path="/enrollment/add" element={<AddEnrollment/>}></Route>
           <Route path="/update-enrollment/:id" element={<AddEnrollment/>}></Route>
+          <Route path="/login" element={<Login/>}></Route>
         </Routes>
         </div>
       </div>
